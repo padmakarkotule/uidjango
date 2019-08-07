@@ -1,33 +1,63 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <title>{% block title %}Base Project Template{% endblock title %}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    {% block head %}
-    {% endblock head %}
-</head>
-<body>
+    <head>
+        <title>{% block title %}Base Project Template{% endblock title %}</title>
+        <!-- Including web site meta information which is needed for SEO.-->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Language" value="en-US" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="{{ STATIC_URL }}images/favicon.ico">
 
-{% block body %}
+        <!-- Including Bootstrap information.-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-    {% block header %}
-    {% endblock header %}
+        <!-- Including component specific css files.-->
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 
-    {% block content %}
-    {% endblock content %}
+        <!-- Including js script paths.-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-    {% block footer %}
-    {% endblock footer %}
+        {% block head %}
+        {% endblock head %}
+    </head>
 
-    {% block footscripts %}
-    {% endblock footscripts %}
+    <header>
+        <!-- Including header html which will be used across the Project.-->
+        {% block header %}
+            {% include 'header.html' %}
+        {% endblock header %}
+    </header>
 
-{% endblock body %}
+    <body>
+        {% block body %}
+             <div class="content">
+                 <div class="row">
+                     <div class="col-md-8">
+                         {% block home %}
+                         {% endblock home %}
+                     </div>
+                 </div>
+             </div>
 
-</body>
+             <div class="content">
+                 <div class="row">
+                     <div class="col-md-8">
+                         {% block content %}
+                         {% endblock content %}
+                     </div>
+                 </div>
+             </div>
+        {% endblock body %}
+    </body>
+
+    <footer>
+        <!-- Including footer html which will be used across the Project.-->
+        {% block footer %}
+            {% include 'footer.html' %}
+        {% endblock footer %}
+    </footer>
 </html>

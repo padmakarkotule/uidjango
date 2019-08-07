@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Home{% endblock title %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
 {% endblock head %}
 
 
-{% block body %}
-    {% block header %}
-        {% include 'ui/header.html' %}
-    {% endblock header %}
+{% block home%}
+    <div class="home">
+        <h1>Home Page!! </h1>
+    </div>
 
-{% endblock body %}
+{% endblock home %}
