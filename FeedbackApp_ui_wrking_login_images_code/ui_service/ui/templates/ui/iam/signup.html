@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sign up{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/iam.css' %}">
+{% endblock head %}
+
+{% block content%}
+        <div class="col-sm-5 col-md-offset-4" style="background: white;position: static;margin-top:49px;">
+        <br>
+            <div class="panel panel-success" style="">
+        <div class="panel-heading">
+            <h3 class="">Resister Here</h3>
+        </div>
+        <br>
+            <div class="panel-body">
+        <form class="md-form" id="add_catalog" method="post">
+            {% csrf_token %}
+            <label class="labelpadding">Full Name</label>
+                        <input type="text" name="name" id="name" placeholder="name" required class="form-control field"/><br>
+                        <label class="labelpadding">Mobile No</label>
+                        <input type="text" name="phone_no" id="phone_no" placeholder="Mob no" required class="form-control field"/><br>
+                        <label class="labelpadding">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter Email" required class="form-control field"/><br>
+                        <label class="labelpadding">Position</label>
+                        <select class="form-control show-tick selectpicker" name="position" id="position" style="" data-live-search="true" required>
+                        {% for position in position_list %}
+                            <option id={{position.id}} value={{position.id}} style="width:100%;">{{ position.name }}</option>
+                        {% endfor %}
+                        </select><br><br>
+                        <label class="labelpadding"> Upload Resume: </label><br>
+                        <input type="file" name="resume" style="size:60;margin-left: 50px;"><br>
+            <input type="submit" class="btn btn-primary" onclick="add_catalog()">
+        </form>
+            </div>
+        <div class="panel-footer">
+                <h5 style="padding-left:5%">Welcome to GSLab </h5>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Including footer html which will be used across the Project.-->
+
+
+
+{% endblock content %}

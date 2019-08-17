@@ -1,0 +1,66 @@
+{% load static %}
+<!--DOCTYPE html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block head_title %}Blog{% endblock head_title %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+
+    <style>
+        {% block style %}
+        {% endblock style %}
+    </style>
+    <script>
+        <script src="{% static 'js/iam/login.js' %}"></script>
+    </script>
+    {% block head_extra %}
+    {% endblock head_extra %}
+
+</head>
+
+  <body>
+      <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    {% if not request.session.jwt_token %}
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                  </button>
+                  <a class="navbar-brand" href="{% url 'login' %}">Login</a>
+                </div>
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                  </button>
+                  <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'signup' %}">SignUp</a></li>
+                    {% endif %}
+                    {% if request.session.jwt_token %}
+                  </ul>
+                       <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                      </ul>
+
+                    {% endif %}
+                </div>
+                </div><!-- /.navbar-collapse -->
+      </nav>
+
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,149 @@
+{% load static %}
+<!--DOCTYPE html-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block head_title %}Blog{% endblock head_title %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+
+    <style>
+    {% block style %}{% endblock style %}
+    </style>
+    <script>
+        $(document).ready(function(){
+            height = $(window).height();
+            $(".dboard").css("height", height);
+
+            window.addEventListener("resize", function myFunction() {
+                height = $(window).height();
+                $(".backdiv").css("height", height-50);
+                $(".dboard").css("height", height);
+            });
+        });
+
+        {% block script %}
+           //Add Catalog
+    function add_catalog(){
+        $("#add_catalog").submit(function(e) {
+
+            var formData = new FormData(this);
+            var add_url = "{{ add_url }}";
+            /*for (var value of formData.values()) {
+                console.log(value);
+            }*/
+            //console.log(formData);
+            $.ajax({
+                "url": add_url,
+                "dataType": "json",
+                "type": "POST",
+                "data": formData,
+                "cache": false,
+                "processData": false,
+                "contentType":false,
+                "success": function (data) {
+                    alert(" Resistered successfully ");
+                    window.location.assign("{% url 'login' %}");
+                },
+            });
+        });
+    }
+        {% endblock script %}
+    </script>
+    {% block head_extra %} {% endblock head_extra %}
+
+</head>
+
+  <body>
+      <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    {% if not request.session.jwt_token %}
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                  </button>
+                  <a class="navbar-brand" href="{% url 'login' %}">Login</a>
+                </div>
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                  </button>
+                  <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'signup' %}">SignUp</a></li>
+                    {% endif %}
+                    {% if request.session.jwt_token %}
+                  </ul>
+                       <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                      </ul>
+
+                    {% endif %}
+                </div>
+                </div><!-- /.navbar-collapse -->
+      </nav>
+      {% block body %}
+
+        <div class="col-sm-5 col-md-offset-4" style="background: white;position: relative;margin-top:49px;">
+        <br>
+            <div class="panel panel-success" style="">
+        <div class="panel-heading">
+            <h3 class="">Resister Here</h3>
+        </div>
+        <br>
+            <div class="panel-body">
+        <form class="md-form" id="add_catalog" method="post">
+            {% csrf_token %}
+            <label class="labelpadding">Full Name</label>
+                        <input type="text" name="name" id="name" placeholder="name" required class="form-control field"/><br>
+                        <label class="labelpadding">Mobile No</label>
+                        <input type="text" name="phone_no" id="phone_no" placeholder="Mob no" required class="form-control field"/><br>
+                        <label class="labelpadding">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter Email" required class="form-control field"/><br>
+                        <label class="labelpadding">Position</label>
+                        <select class="form-control show-tick selectpicker" name="position" id="position" style="" data-live-search="true" required>
+                        {% for position in position_list %}
+                            <option id={{position.id}} value={{position.id}} style="width:100%;">{{ position.name }}</option>
+                        {% endfor %}
+                        </select><br><br>
+                        <label class="labelpadding"> Upload Resume: </label><br>
+                        <input type="file" name="resume" style="size:60;margin-left: 50px;"><br>
+            <input type="submit" class="btn btn-primary" onclick="add_catalog()">
+        </form>
+            </div>
+        <div class="panel-footer">
+                <h5 style="padding-left:5%">Welcome to GSLab </h5>
+        </div>
+    </div>
+</div>
+
+          <!--
+
+                <h2> User info </h2>
+                <p> Username : {{ user.username }}</p>
+                <p> Email    : {{ user.email }} </p>
+                <p> requsest.username : {{ request.user }}</p>
+                <h2> request.session info </h2>
+                <p> uid      : {{ request.session.uid }}</p>
+                <p> Username : {{ request.session.username }}</p>
+                <p> tocken   : {{ request.session.token }}</p>
+                {{ request.session.user }}
+-->
+
+            {% endblock %}
+  </body>
+</html>
+
+
+
+

@@ -6,13 +6,8 @@ body {
   font-family: 'Poppins', sans-serif;
   color: #555555;
 }
-h1 {
-    color: green;
-    font-size: 30px;
-    background: silver;
-    padding: 20px;
-    text-align: center;
-}
+
+h1,
 h2,
 h3,
 h4,
@@ -2021,3 +2016,4 @@ footer .credits {
     font-size: 1.3rem;
   }
 }
+

@@ -1,0 +1,100 @@
+{% extends 'ui/iam/account_base.html' %}
+<head>
+  {% block head %}
+
+    <title>Login</title>
+
+    <script>
+
+        	function cript(){
+				var  password = $('#password').val();
+				var encodedpassword = btoa(password);
+                console.log(encodedpassword);
+                $('#password').val(encodedpassword);
+                  var  username = $('#username').val();
+                var encodedusername = btoa(username);
+                console.log(encodedusername);
+                $('#username2').val(encodedusername);
+
+				}
+			function cript1(){
+
+				}
+
+        function user_login(){
+            $('#user_login').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                                for (var value of formData.keys()) {
+                  console.log(value);
+                }
+                   for (var value of formData.values()) {
+                     console.log(value);
+                }
+                console.log(formData);
+                $.ajax({
+                    "url": "http://feedback-service:8001/user/login/",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": formData,
+                    "cache": false,
+                    "processData": false,
+                    "contentType":false,
+                    "success": function (data) {
+                        alert(" User login successfully ");
+                        window.location.assign("{% url 'home' %}");
+                    },
+                    "error": function(data) {
+                        alert("Invalid username or password");
+                        window.location.assign("{% url 'login' %}");
+                    },
+                });
+            });
+        }
+    </script>
+   {% endblock %}
+</head>
+{% block style %}
+<style>
+      input {
+        height: 30px;
+        padding-left: 10px;
+        border-radius: 4px;
+        border: 1px solid rgb(186, 178, 178);
+        box-shadow: 0px 0px 12px #EFEFEF;
+      }
+ </style>
+{% endblock %}
+{% block body %}
+
+<div class="col-sm-5 col-md-offset-4" style="margin-top:0%">
+    <!--<button onclick="sendmail()">Click</button>-->
+    <br>
+    <div class="panel panel-success" style="">
+        <div class="panel-heading">
+            <h3 class="">Login</h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" id="idlogin">
+            {% csrf_token %}
+                        <label class="labelpadding">Username</label>
+                        <input type="text" autofocus  name="username" id="name" placeholder="Name" required class="form-control field"><br>
+                        <label class="labelpadding">Password</label>
+                        <input type="password" name="password" id="password" required class="form-control field" placeholder="Password" ><br>
+                        <br><br>
+                 <input type="submit" class="btn btn-lg btn-primary " value="Login" style="width:100%">
+                     <!--onclick="user_login()"-->
+                 </form>
+        </div>
+        <div class="panel-footer">
+                <h5 style="padding-left:5%">Dont have an Account?<a href="{% url 'signup' %}">Sign in</a></h5>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+

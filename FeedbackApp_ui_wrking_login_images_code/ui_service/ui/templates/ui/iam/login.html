@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+  {% block head %}
+    <title>Login</title>
+    <script>
+        <link rel="stylesheet" href="{% static 'css/iam.css' %}">
+        <script src="{% static 'js/iam/loginpassword.js' %}"></script>
+    </script>
+
+</head>
+  {% endblock head %}
+{% block content %}
+ <div class="col-sm-5 col-md-offset-4" style="margin-top:0%">
+    <!--<button onclick="sendmail()">Click</button>-->
+    <br>
+    <div class="panel panel-success" style="">
+        <div class="panel-heading">
+            <h3 class="">Login</h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" id="idlogin">
+            {% csrf_token %}
+                        <label class="labelpadding">Username</label>
+                        <input type="text" autofocus  name="username" id="name" placeholder="Name" required class="form-control field"><br>
+                        <label class="labelpadding">Password</label>
+                        <input type="password" name="password" id="password" required class="form-control field" placeholder="Password" ><br>
+                        <br><br>
+                 <input type="submit" class="btn btn-lg btn-primary " value="Login" style="width:100%">
+                     <!--onclick="user_login()"-->
+             </form>
+        </div>
+        <div class="panel-footer">
+                <h5 style="padding-left:5%">Dont have an Account?<a href="{% url 'signup' %}">Sign in</a></h5>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+

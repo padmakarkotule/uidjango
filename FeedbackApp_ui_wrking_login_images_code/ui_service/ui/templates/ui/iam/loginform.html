@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+
+{% block head %}
+    <title>Login</title>
+    <script>
+
+          	function cript(){
+				var  password = $('#password').val();
+				var encodedpassword = btoa(password);
+                console.log(encodedpassword);
+                $('#password').val(encodedpassword);
+                  var  username = $('#username').val();
+                var encodedusername = btoa(username);
+                console.log(encodedusername);
+                $('#username2').val(encodedusername);
+
+				}
+			function cript1(){
+
+				}
+
+        function user_login(){
+            $('#user_login').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                                for (var value of formData.keys()) {
+                  console.log(value);
+                }
+                   for (var value of formData.values()) {
+                     console.log(value);
+                }
+                console.log(formData);
+                $.ajax({
+                    "url": "http://127.0.0.1:8001/user_login/",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": formData,
+                    "cache": false,
+                    "processData": false,
+                    "contentType":false,
+                    "success": function (data) {
+                        alert(" User login successfully ");
+                        window.location.assign("{% url 'home' %}");
+                    },
+                    "error": function(data) {
+                        alert("Invalid username or password");
+                        window.location.assign("{% url 'signup' %}");
+                    },
+                });
+            });
+        }
+
+
+
+    </script>
+
+{% endblock head %}
+
+{% block content %}
+<h1>Login form</h1>
+  <div class="col-sm-5 col-md-offset-4" style="margin-top:0%">
+      <br>
+        <div class="panel panel-success" style="">
+            <div class="panel-heading">
+              <h3 class="">Login</h3>
+            </div>
+              <div class="panel-body">
+                <form method="post" action="http://imservice:8081/login/">
+                  {% csrf_token %}
+                      {{ form.username.label_tag }} {{ form.username }}
+                      <br>
+                      {{ form.password.label_tag }} {{ form.password }}
+                      <br>
+                      <br><br>
+                  <input type="submit" class="btn btn-lg btn-primary " name=login value="Login" style="width:100%">
+                      <!--onclick="user_login1()"-->
+                </form>
+              </div>
+          <div class="panel-footer">
+                <h5 style="padding-left:5%">Dont have an Account?<a href="{% url 'signup' %}">Sign up</a></h5>
+          </div>
+      </div>
+  </div>
+{% endblock content %}
+
+<!--
+Example of another form -
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+        </table>
+
+        <input type="submit" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+-->
+
+
+
+

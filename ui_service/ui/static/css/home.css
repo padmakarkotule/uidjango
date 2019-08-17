@@ -1,5 +1,9 @@
+/*============================================================================
+//--//-->   Used for Home Pages(contact, about etc.) Pages specific setting.
+==============================================================================*/
+
 .home{
   padding-top: 60px;
   margin-top: 60px;
-  background: white;
+  background: silver;
 }

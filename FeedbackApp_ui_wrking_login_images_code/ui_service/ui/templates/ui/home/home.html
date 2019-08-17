@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content%}
+    <h1>Home Page !!</h1>
+  <table>
+        <tr>
+            <td> {{ message.message }} </td>
+            <td> {{ message.error }} </td>
+            <td> {{ jwt_token }} </td>
+        </tr>
+       <br>
+
+      <tr>
+
+            <td> {{ jwt_token.data.0 }} </td>
+      </tr>
+            <td> {{ jwt_token.data.1 }} </td>
+      <tr>
+          <td> {{ jwt_token.data.2 }} </td>
+      </tr>
+
+      <tr>
+             <td> {{ jwt_token.data.3 }} </td>
+      </tr>
+            <td> {{ jwt_token.data.4.0.1 }} </td>
+      <tr>
+             <td> {{ jwt_token.data.4.1 }} </td>
+      </tr>
+      <tr>
+             <td> {{ jwt_token.T.0 }} </td>
+      </tr>
+
+  </table>
+
+
+
+{% endblock content %}
+
+
+
