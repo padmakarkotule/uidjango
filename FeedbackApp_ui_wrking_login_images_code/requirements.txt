@@ -9,6 +9,6 @@ pyasn1==0.4.3
 pytz==2018.5
 requests==2.19.1
 reverse==0.1.0
-urllib3==1.23
+urllib3==1.26.5
 virtualenv==16.0.0
 virtualenvwrapper-win==1.2.5
